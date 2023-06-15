@@ -1,0 +1,4 @@
+#This will ignore both bin & obj files
+bin 
+obj
+.vscode
