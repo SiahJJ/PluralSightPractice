@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 namespace CityInfo.API.Controllers
 {
-    [ApiController]//configures the ocntroller with dev experience 
+    [ApiController]//configures the controller with dev experience 
     [Route("api/cities")]
     public class CitiesController : ControllerBase
     {
