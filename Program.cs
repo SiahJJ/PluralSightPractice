@@ -16,14 +16,12 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 //Jake & I added - Bad practice
-app.Environment.EnvironmentName = "Development";
+//app.Environment.EnvironmentName = "Development";
 
-// Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment()) //used so that the swagger devlopment middle ware is only added in dvlopment enviornemnt  
-// {
-//     app.UseSwagger(); //always first 
-//     app.UseSwaggerUI();
-// }
+//Configure the HTTP request pipeline.
+ 
+app.UseSwagger(); //always first 
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
