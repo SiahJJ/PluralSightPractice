@@ -2,8 +2,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers(); // registers supporting controlers on the continers MVC
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// registers supporting controlers on the continers MVC
+builder.Services.AddControllers(options => //adding controlers for services connection 
+{
+    options.ReturnHttpNotAcceptable = true; //returning a message stating not supported depending on json/xml, etc.(status code)
+}).AddXmlDataContractSerializerFormatters();//this adds support for xml 
+
+// Learn more about configuring Swagger/OpenAPI at 
+//https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
