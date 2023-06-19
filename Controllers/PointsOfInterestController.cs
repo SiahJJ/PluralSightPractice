@@ -19,6 +19,7 @@ namespace CityInfo.API.Controllers
             {
                 return NotFound();
             }
+
             return Ok(city.PointsOfInterest);//resulting in 200 ok status code
         }
         [HttpGet("{pointofinterestid}")]//extra check for one specific point of interest - 
@@ -41,5 +42,13 @@ namespace CityInfo.API.Controllers
 
             return Ok(pointofinterest);
         }
+
+        [HttpPost]//post request returns the created resruce in the response 
+        public ActionResult<PointOfInterestDto> CreatePointOfInterest(//new action, "CreatePointOfInterest"
+            int cityId,
+            PointOfInterestForCreationDto pointOfInterest)
+            {
+                if 
+            }
     }
 }

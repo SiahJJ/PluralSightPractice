@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.StaticFiles;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,7 +14,8 @@ builder.Services.AddControllers(options => //adding controlers for services conn
 //https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddSingleton<FileExtensionContentTypeProvider>();//builtin provider (static files), adding "addsingleton" to type through services 
+    //statement allows us to inject file extension content type provider 
 var app = builder.Build();
 
 //Jake & I added - Bad practice
