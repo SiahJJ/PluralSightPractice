@@ -45,16 +45,13 @@ namespace CityInfo.API.Controllers
 
             return Ok(pointofinterest);
         }
-
+        //creating point of interest -
         [HttpPost]//post request returns the created resruce in the response 
         public ActionResult<PointOfInterestDto> CreatePointOfInterest(//new action, "CreatePointOfInterest"
             int cityId,
             PointOfInterestForCreationDto pointOfInterest)
         {
-            //if (!ModelState.IsValid)//modelstat is a essentally a dictionary 
-            //{
-              //  return BadRequest();
-            //}
+
             var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
             if (city == null)
             {
@@ -81,32 +78,32 @@ namespace CityInfo.API.Controllers
                     pointOfInterestId = finalPointOfInterest.Id
                 },
                 finalPointOfInterest);   
-        }
+        // }
 
-        [HttpPut("{pointofinterestid}")]//new action, updatepointofinterest, httpput allows for full updates 
-        public ActionResult UpdatePointOfInterest(int cityId, int pointOfInterestId,
-            PointOfInterestForUpdateDto pointOfInterest)
-        {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
-            if (city == null)
-            {
-                return NotFound();
-            }
+        // [HttpPut("{pointofinterestid}")]//new action, updatepointofinterest, httpput allows for full updates 
+        // public ActionResult UpdatePointOfInterest(int cityId, int pointOfInterestId,
+        //     PointOfInterestForUpdateDto pointOfInterest)
+        // {
+        //     var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+        //     if (city == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            //find point of interest
-            var pointOfInterestGromStore = city.PointsOfInterest
-                .FirstOrDefault(c => c.Id == pointOfInterestId);
-            if (pointOfInterestGromStore == null)
-            {
-                return NotFound();
-            }
+        //     //find point of interest
+        //     var pointOfInterestGromStore = city.PointsOfInterest
+        //         .FirstOrDefault(c => c.Id == pointOfInterestId);
+        //     if (pointOfInterestGromStore == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            //full update principle here
-            pointOfInterestGromStore.Name = pointOfInterest.Name;//if consumer does not provide value, set to default 
-            pointOfInterestGromStore.Descriptin = pointOfInterest.Description;
-            //this updates all fields ^
-
-            return NoContent();
+        //     //full update principle here
+        //     pointOfInterestGromStore.Name = pointOfInterest.Name;//if consumer does not provide value, set to default 
+        //     pointOfInterestGromStore.Description = pointOfInterest.Description;
+        //     //this updates all fields ^
+        //     //*description is not returning as null in postman*
+        //     return NoContent();
         }
     }
 }
