@@ -9,6 +9,7 @@ builder.Services.AddControllers(options => //adding controlers for services conn
 {
     options.ReturnHttpNotAcceptable = true; //returning a message stating not supported depending on json/xml, etc.(status code)
 }).AddNewtonsoftJson()//replaces json input & output formatters with json.net
+//^added microsoft.aspnetcore.netwtonsoft 
 .AddXmlDataContractSerializerFormatters();//this adds support for xml 
 
 // Learn more about configuring Swagger/OpenAPI at 
