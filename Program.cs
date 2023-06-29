@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.StaticFiles;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Logging.ClearProviders();//resulting in nothing being logged anymore - also will not run while active 
+builder.Logging.AddConsole(); 
 // Add services to the container.
 
 // registers supporting controlers on the continers MVC

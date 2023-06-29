@@ -20,12 +20,16 @@ namespace CityInfo.API.Controllers
         [Required] 
         private object pointOfInterestFromStore;
 
-    //logger - constructor injection 
-    private readonly ILogger<PointsOfInterestController> _Logger;
-    public class PointsOfInterestController(ILogger<PointsOfInterestController> logger)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));//null check 
-    }
+        private readonly ILogger<PointsOfInterestController> _logger;
+        public PointsOfInterestController(ILogger<PointsOfInterestController> logger)
+        {
+            
+        }
+        public PointsOfInterestController(ILogger<PointsOfInterestController> logger)
+        {
+            _logger = logger;// ?? throw new ArgumentNullException(nameof(logger));//null check, got rid of "_logger"
+        }
+        //returning 500 internal server error^ should return 404 not found with _logger.loginformation
     
         [HttpGet]//can be routed to when using get 
         public ActionResult<IEnumerable<PointOfInterestDto>> GetPointsOfInterest(int cityId)
@@ -35,13 +39,13 @@ namespace CityInfo.API.Controllers
             if (city == null)
             {
                 //logging the info for HttpGet 
-                _Logger.LogInformation($"City with id {cityId} wasn't found when accessing points of interest.");
+                _logger.LogInformation($"City with id {cityId} wasn't found when accessing points of interest.");
                 return NotFound();
             }
 
             return Ok(city.PointsOfInterest);//resulting in 200 ok status code
         }
-        //Get Request 
+        Get Request 
         [HttpGet("{pointofinterestid}", Name = "GetPointOfInterest")]//extra check for one specific point of interest - 
         public ActionResult<PointOfInterestDto> GetPointOfInterest(
             [FromRoute] int cityId, [FromRoute] int pointOfInterstId)//each int is a parameter 
