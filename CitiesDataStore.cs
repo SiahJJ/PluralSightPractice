@@ -6,7 +6,8 @@ namespace CityInfo.API
     {
         public List<CityDto> Cities { get; set; }
 
-        public static CitiesDataStore Current { get; } = new CitiesDataStore(); //"current" is a static property
+        //public static CitiesDataStore Current { get; } = new CitiesDataStore(); //"current" is a static property
+        //this static instance can now be nulled as we are using local and cloud mail services (singleton)
 
         public CitiesDataStore()
         {

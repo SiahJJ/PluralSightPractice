@@ -8,20 +8,36 @@ namespace CityInfo.API.Controllers
     [Route("api/cities")]
     public class CitiesController : ControllerBase
     {
+        private readonly CitiesDataStore _citiesDataStore;
+       // private readonly _citiesDataStore Cities;
+       // private readonly  Cities;
+
+       //Constructor 
+        public CitiesController(CitiesDataStore citiesDataStore)
+        {
+            CitiesDataStore = citiesDataStore ?? throw new ArgumentNullException(nameof(citiesDataStore));
+        }
+
         private object? cityToReturn;
 
-        [HttpGet]  //passing in as the routing template 
-        public JsonResult GetCities()
-        {
-            return new JsonResult(CitiesDataStore.Current.Cities);
+        public CitiesDataStore CitiesDataStore { get; }
 
+        [HttpGet]  //passing in as the routing template 
+        // public JsonResult GetCities()
+        // {
+        //     return new JsonResult(_citiesDataStore.Cities);//replacing "CitiesDataStore.Current" with _citiesDataStore 
+
+        // }
+        public ActionResult<IEnumerable<CityDto>> GetCities()
+        {
+            return Ok(_citiesDataStore.Cities);//replacing "CitiesDataStore.Current" with _citiesDataStore 
         }
-        //Below here is where the problem results - 
+
         [HttpGet("{id}")] //attatched to "api/cities" just adding id 
         public ActionResult<CityDto> GetCity(int id)
         { 
             //finding the city
-            var cityToReturn = CitiesDataStore.Current.Cities
+            var cityToReturn = _citiesDataStore.Cities
                 .FirstOrDefault(c => c.Id ==id);
 
             if (cityToReturn == null)

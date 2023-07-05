@@ -7,11 +7,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
-    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.1"/>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1"/>
+    <PackageReference Include="serilog.aspnetcore" Version="7.0.0" />
+    <PackageReference Include="serilog.sinks.console" Version="4.1.0" />
+    <PackageReference Include="serilog.sinks.file" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\"/>
+    <Folder Include="bin\" />
   </ItemGroup>
 </Project>

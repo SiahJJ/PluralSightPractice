@@ -1,9 +1,21 @@
+using CityInfo.API;
+using CityInfo.API.Services;
 using Microsoft.AspNetCore.StaticFiles;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
-builder.Logging.ClearProviders();//resulting in nothing being logged anymore - also will not run while active 
-builder.Logging.AddConsole(); 
-// Add services to the container.
+//configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("logs/cityinfo.txt", rollingInterval: RollingInterval.Day)//new log file crated daily
+    .CreateLogger();
+//Serilog configuration ^
+
+var builder = WebApplication.CreateBuilder(args);//automatically creates a set of login providers 
+// builder.Logging.ClearProviders();//resulting in nothing being logged anymore - also will not run while active 
+// builder.Logging.AddConsole(); // Add services to the container.
+//telling aps.netcore to use Serilog - Removing other builder ^ now 
+builder.Host.UseSerilog();
 
 // registers supporting controlers on the continers MVC
 builder.Services.AddControllers(options => //adding controlers for services connection 
@@ -18,13 +30,20 @@ builder.Services.AddControllers(options => //adding controlers for services conn
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();//builtin provider (static files), adding "addsingleton" to type through services 
-    //statement allows us to inject file extension content type provider 
+//statement allows us to inject file extension content type provider 
+
+//compiler directives
+#if DEBUG//if debug adding local mail service 
+//trnasient lightweight, instance of local mailservice is now injectable 
+builder.Services.AddTransient<IMailService, LocalMailService>();
+#else//else adding cloud mail service 
+builder.Services.AddTransient<IMailService, CloudMailService>();
+#endif
+
+//register citiesdatastore on register container 
+builder.Services.AddSingleton<CitiesDataStore>(); 
+
 var app = builder.Build();
-
-//Jake & I added - Bad practice
-//app.Environment.EnvironmentName = "Development";
-
-//Configure the HTTP request pipeline.
  
 app.UseSwagger(); //always first 
 app.UseSwaggerUI();
